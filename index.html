@@ -11,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
     <script>
-        function Hola(props) {
+        function Hello(props) {
             const name = props.name;
 
             return React.DOM.h1({
@@ -19,19 +19,19 @@
             }, `Hello ${name}`);
         }    
         
-        const hola = React.createElement(Hola, {
+        const hello = React.createElement(Hello, {
             name: 'World',
         });
 
         ReactDOM.render(
-            hola,
+            hello,
             document.getElementById('app')
         );
 
         setTimeout(
             () => {
                 ReactDOM.render(
-                    React.createElement(Hola, { name: 'World!' }),
+                    React.createElement(Hello, { name: 'World!' }),
                     document.getElementById('app')
                 )
             },
