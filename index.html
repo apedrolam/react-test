@@ -10,28 +10,27 @@
     <main id="app"></main>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
-    <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
+    <script type="text/babel">
         function Hello(props) {
             const name = props.name;
 
-            return React.DOM.h1({
-                id: 'Title',
-            }, `Hello ${name}`);
-        }    
-        
-        const hello = React.createElement(Hello, {
-            name: 'World',
-        });
+            return (
+                <h1 id="Title">
+                    Hello {name}
+                </h1>
+            );
+        }
 
         ReactDOM.render(
-            hello,
+            <Hello name="World" />,
             document.getElementById('app')
         );
 
         setTimeout(
             () => {
                 ReactDOM.render(
-                    React.createElement(Hello, { name: 'World!' }),
+                    <Hello name="World!" />,
                     document.getElementById('app')
                 )
             },
