@@ -15,7 +15,7 @@
     <script type="text/babel">
         function Hello(props) {
             return (
-                <h1 id="Title" onClick={props.onClick}>
+                <h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
                     Hello {props.name} {props.count}
                 </h1>
             );
@@ -69,12 +69,17 @@
                 });
             }
 
+            handleMouseEnter (event) {
+                console.log(event);
+            }
+
             render() {
                 return (
                 <Hello
                     name={this.props.name}
                     count={this.state.count}
                     onClick={this.handleClick}
+                    onMouseEnter={this.handleMouseEnter}
                 />
                 );
             }
