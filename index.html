@@ -13,13 +13,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
     <script type="text/babel">
-        function Hello(props) {
+        function Hello(props, context) {
             return (
                 <h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
-                    Hello {props.name} {props.count}
+                    Hello {props.name} {context.count}
                 </h1>
             );
         }
+
+        Hello.contextTypes = {
+            count: React.PropTypes.number
+        };
 
         class MyComponent extends React.Component {
             constructor(props) {
@@ -30,6 +34,12 @@
                 };
 
                 this.handleClick = this.handleClick.bind(this);
+            }
+
+            getChildContext() {
+                return {
+                    count: this.state.count,
+                }
             }
 
             componentWillMount() {
@@ -84,6 +94,10 @@
                 );
             }
         }
+
+        MyComponent.childContextTypes = {
+            count: React.PropTypes.number,
+        };
 
         ReactDOM.render(
             <MyComponent name="World" />,
