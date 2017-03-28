@@ -40,11 +40,11 @@
                 document.addEventListener('click', this.handleClick);
             }
 
-            componentWillReceiveProps(nextProps) {
-                this.setState({
-                    count: this.state.count * 2
-                })
-            }
+            //componentWillReceiveProps(nextProps) {
+            //  this.setState({
+            //      count: this.state.count * 2
+            //  })
+            //}
 
             shouldComponentUpdate(nextProps, nextState) {
                 if (nextState.count !== this.state.count) return true;
