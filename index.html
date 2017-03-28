@@ -13,9 +13,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
     <script type="text/babel">
+        function Counter(WrappedComponent) {
+            class CounterHOC extends React.Component {
+                constructor(props) {
+                    super(props);
+
+                    this.state = {
+                        count: 0,
+                    };
+
+                    this.handleClick = this.handleClick.bind(this);
+                }
+
+                getChildContext() {
+                    return {
+                        count: this.state.count,
+                    };
+                }
+
+                handleClick() {
+                    this.setState({
+                        count: this.state.count + 1,
+                    });
+                }
+
+                render () {
+                    return (
+                        <WrappedComponent
+                            onClick={this.handleClick}
+                            {...this.props}
+                        />
+                    )
+                }
+            }
+
+            CounterHOC.childContextTypes = {
+                count: React.PropTypes.number,
+            };
+
+            return CounterHOC;
+        }
+
         function Hello(props, context) {
             return (
-                <h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
+                <h1 id="Title" onClick={props.onClick}>
                     Hello {props.name} {context.count}
                 </h1>
             );
@@ -24,6 +65,8 @@
         Hello.contextTypes = {
             count: React.PropTypes.number
         };
+
+        const HelloHOC = Counter(Hello);
 
         class MyComponent extends React.Component {
             constructor(props) {
@@ -99,8 +142,23 @@
             count: React.PropTypes.number,
         };
 
+        const mixin = {
+            handleClick() {
+                console.log("Clicked");
+            },
+        };
+
+        const Component = React.createClass({
+            mixins: [
+                mixin,
+            ],
+            render() {
+                return <div onClick={this.handleClick}>Hey</div>;
+            }
+        })
+
         ReactDOM.render(
-            <MyComponent name="World" />,
+            <HelloHOC name="World" />,
             document.getElementById('app')
         );
     </script>
